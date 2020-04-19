@@ -2,6 +2,9 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import './redux-files/store/vas';
+
+
 function App() {
   return (
     <div className="App">
