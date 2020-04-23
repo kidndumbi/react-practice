@@ -2,47 +2,40 @@ import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux'
 import './App.css';
 
-import './redux-files/store/vas';
+import './redux-files/store/store';
 
-import { addVas, removeVas, updateVas } from './redux-files/actions/vas';
+import { addVas, removeVas, updateVas, fetchVasAsync } from './redux-files/actions/vas';
 
 import VasList from './VasList';
+import { VasModel } from './models/vas';
 
-
+ 
 function App(props: any) {
 
+
+  console.log('the props::: ', props);
   // const _vasStore = vasStore();
 
-  const companySiteIdRef = useRef<any>(null);
+  const companySiteIdRef = useRef<HTMLInputElement | null>(null);
   const storeNameref = useRef<any>(null);
   const vasTypeRef = useRef<any>(null)
 
   useEffect(() => {
 
-    props.dispatch(addVas({
-      companySiteId: 1984,
-      storeName: 'Promgirl',
-      vasType: 'ASN'
-    }));
-
-    props.dispatch(addVas({
-      companySiteId: 9920,
-      storeName: 'Tom Ford',
-      vasType: 'ASN'
-    }));
+    props.fetchVasAsync();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 
   const submitData = () => {
-    const companySiteId = companySiteIdRef.current.value;
+    const companySiteId = companySiteIdRef.current ? parseInt(companySiteIdRef.current.value  ) : 0;
     const storeName = storeNameref.current.value;
     const vasType = storeNameref.current.value;
 
     const payload = { companySiteId, storeName, vasType };
 
-    props.dispatch(addVas(payload));
+    props.addVas(payload);
   }
 
   return (
@@ -54,15 +47,23 @@ function App(props: any) {
           <input ref={vasTypeRef} type="text" placeholder="vas type"></input>
           <button onClick={submitData} type="button">SUBMIT</button>
         </div>
-        <VasList></VasList>
+        <VasList ></VasList>
       </div>
   );
 }
 
 const mapStateToProps = (state: any) => {
   return {
-      vas: state
+      vas: state.vas,
+      filters: state.filters
   }
 }
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+      addVas: (payload: VasModel) => {dispatch(addVas(payload))},
+      fetchVasAsync: () => {dispatch(fetchVasAsync())}
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,0 +1,6 @@
+export enum ENUM_VAS_ACTION {
+    ADD_VAS = 'ADD_VAS',
+    REMOVE_VAS = 'REMOVE_VAS',
+    UPDATE_VAS = 'UPDATE_VAS',
+    FETCH_VAS = 'FETCH_VAS'
+}

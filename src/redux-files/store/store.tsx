@@ -1,11 +1,20 @@
-import { createStore } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { vasReducer } from '../reducers/vas';
+import { filtersReducer } from '../reducers/filters';
+import { createLogger } from 'redux-logger';
+import reduxThunk from 'redux-thunk';
+
 // import { addVas, removeVas, updateVas } from '../actions/vas';
 
-const vasStore = createStore(vasReducer);
+const store = createStore(combineReducers({
+    vas: vasReducer,
+    filters: filtersReducer
+}), applyMiddleware(
+    reduxThunk,
+    createLogger()));
 
 export default () => {
-    return vasStore
+    return store
 }
 
 

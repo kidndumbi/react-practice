@@ -1,17 +1,12 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { VasModel } from './models/vas';
-import { removeVas, addVas } from './redux-files/actions/vas';
+import { removeVas } from './redux-files/actions/vas';
 import { connect } from 'react-redux';
 
 function VasList(props: any) {
 
-    useEffect(() => {
-        console.log('data changing?? ', props.vas)
-
-    }, [props.vas])
-
     const deleteVas = (id: string = '') => {
-        props.dispatch(removeVas(id))
+        props.removeVas(id);
     }
 
     return (
@@ -32,8 +27,15 @@ function VasList(props: any) {
 
 const mapStateToProps = (state: any) => {
     return {
-        vas: state
+        vas: state.vas,
+        filters: state.filters
     }
 }
 
-export default connect(mapStateToProps)(VasList);
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        removeVas: (id: string) => {dispatch(removeVas(id))},
+    }
+  }
+
+export default connect(mapStateToProps, mapDispatchToProps)(VasList);

@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
-import vasStore from './redux-files/store/vas'
+import vasStore from './redux-files/store/store'
 
 ReactDOM.render(
   <React.StrictMode>

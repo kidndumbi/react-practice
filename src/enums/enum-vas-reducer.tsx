@@ -1,5 +1,0 @@
-export enum ENUM_VAS_REDUCER {
-    ADD_VAS = 'ADD_VAS',
-    REMOVE_VAS = 'REMOVE_VAS',
-    UPDATE_VAS = 'UPDATE_VAS'
-}
